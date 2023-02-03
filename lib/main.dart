@@ -1,6 +1,9 @@
-import 'package:delivery_app_dw9/app/app_widget.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'app/app_widget.dart';
+import 'app/core/config/env/env.dart';
+
+void main() async{
+  await Env.instance.load();
   runApp(const AppWidget());
 }
