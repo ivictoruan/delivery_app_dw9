@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../styles/app_styles.dart';
+
 class DeliveryButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
@@ -16,9 +18,14 @@ class DeliveryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(label),
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        style: AppStyles.instance.primaryButton,
+        onPressed: onPressed,
+        child: Text(label),
+      ),
     );
   }
 }
