@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class TextStyles {
-
   static TextStyles? _instance;
 
   TextStyles._();
@@ -10,7 +9,7 @@ class TextStyles {
     _instance ??= TextStyles._();
     return _instance!;
   }
- 
+
   String get font => 'mplus1';
 
   TextStyle get textLight => TextStyle(
@@ -37,10 +36,12 @@ class TextStyles {
   TextStyle get textExtraBold => TextStyle(
         fontWeight: FontWeight.w800,
         fontFamily: font,
-      ); 
+      );
   TextStyle get textButtonLabel => textBold.copyWith(fontSize: 14);
+
+  TextStyle get textTitle => textExtraBold.copyWith(fontSize: 28);
 }
 
 extension TextStylesExtensions on BuildContext {
-  TextStyles get  textStyles => TextStyles.instance;
+  TextStyles get textStyles => TextStyles.instance;
 }
