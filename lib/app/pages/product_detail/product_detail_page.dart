@@ -33,37 +33,37 @@ class _ProductDetailPageState
 
   void _showConfirmDelete(int amount) {
     showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Excluir o produto?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  "Cancelar",
-                  style:
-                      context.textStyles.textBold.copyWith(color: Colors.red),
-                ),
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Excluir o produto?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "Cancelar",
+                style: context.textStyles.textBold.copyWith(color: Colors.red),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
 
-                  Navigator.of(context).pop(
-                      OrderProductDto(product: widget.product, amount: amount));
-                },
-                child: Text(
-                  "Confirmar",
-                  style: context.textStyles.textBold,
-                ),
+                Navigator.of(context).pop(
+                    OrderProductDto(product: widget.product, amount: amount));
+              },
+              child: Text(
+                "Confirmar",
+                style: context.textStyles.textBold,
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -154,7 +154,6 @@ class _ProductDetailPageState
                         children: [
                           Text(
                             "Adicionar",
-                            // textAlign: TextAlign.start,
                             style: context.textStyles.textExtraBold.copyWith(
                               fontSize: 13,
                             ),
