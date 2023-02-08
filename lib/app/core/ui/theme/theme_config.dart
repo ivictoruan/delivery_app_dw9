@@ -7,11 +7,11 @@ import '../styles/text_styles.dart';
 class ThemeConfig {
   ThemeConfig._();
 
-  static const _defaultInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(7),
-    ),
-  );
+  static final _defaultInputBorder = OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(7),
+      ),
+      borderSide: BorderSide(color: Colors.grey[400]!));
 
   static final ThemeData theme = ThemeData(
     primaryColor: ColorsApp.instance.primary,
@@ -32,7 +32,7 @@ class ThemeConfig {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: AppStyles.instance.primaryButton,
     ),
-    inputDecorationTheme:  InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
       isDense: true,
@@ -41,7 +41,8 @@ class ThemeConfig {
       enabledBorder: _defaultInputBorder,
       focusedBorder: _defaultInputBorder,
       labelStyle: TextStyles.instance.textRegular.copyWith(color: Colors.black),
-      errorStyle: TextStyles.instance.textRegular.copyWith(color: Colors.redAccent),
+      errorStyle:
+          TextStyles.instance.textRegular.copyWith(color: Colors.redAccent),
     ),
   );
 }
