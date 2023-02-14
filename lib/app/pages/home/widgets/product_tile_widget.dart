@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_app_dw9/app/core/extensions/formatter_extension.dart';
 import 'package:delivery_app_dw9/app/core/ui/styles/colors_app.dart';
 import 'package:delivery_app_dw9/app/core/ui/styles/text_styles.dart';
@@ -20,6 +21,7 @@ class ProductTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final String? productImage = product.image;
     return InkWell(
       onTap: () async {
         final controller = context.read<
@@ -64,12 +66,45 @@ class ProductTileWidget extends StatelessWidget {
                 ],
               ),
             ),
-            FadeInImage.assetNetwork(
-              image: product.image,
-              placeholder: "assets/images/loading.gif",
+            Container(
               width: 100,
               height: 100,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child: Image(
+                image: CachedNetworkImageProvider(
+                  product.image,
+                  maxWidth: 160,
+                  maxHeight: 120,
+                ),
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: context.colors.secondary,
+                      strokeWidth: 2,
+                    ),
+                  );
+                },
+              ),
             ),
+            // FadeInImage.assetNetwork(
+            //   image: product.image,
+            //   placeholder: "assets/images/loading.gif",
+            //   width: 100,
+            //   height: 100,
+            //   imageErrorBuilder: (context, error, stackTrace) {
+            //     return Image.asset(
+            //       'assets/images/lanche.png',
+            //       fit: BoxFit.fitWidth,
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
