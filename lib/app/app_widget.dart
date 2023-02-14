@@ -1,11 +1,12 @@
-import 'package:delivery_app_dw9/app/core/provider/application_binding.dart';
-import 'package:delivery_app_dw9/app/pages/auth/register/register_page.dart';
-import 'package:delivery_app_dw9/app/pages/product_detail/product_detail_router.dart';
 import 'package:flutter/material.dart';
 
+import 'core/provider/application_binding.dart';
 import 'core/ui/theme/theme_config.dart';
-import 'pages/auth/login/login_page.dart';
+import 'pages/auth/login/login_router.dart';
+import 'pages/auth/register/register_router.dart';
 import 'pages/home/home_router.dart';
+import 'pages/order/order_router.dart';
+import 'pages/product_detail/product_detail_router.dart';
 import 'pages/splash/splash_page.dart';
 
 class AppWidget extends StatelessWidget {
@@ -13,6 +14,7 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // debugInvertOversizedImages = true;
     return ApplicationBinding(
       child: MaterialApp(
         title: "Café com Frutas App",
@@ -22,8 +24,9 @@ class AppWidget extends StatelessWidget {
           '/': (context) => const SplashPage(),
           '/home': (context) => HomeRouter.page,
           '/productDetail': (context) => ProductDetailRouter.page,
-          '/auth/login': (context) => const LoginPage(),
-          '/auth/register': (context) => const RegisterPage(),
+          '/auth/login': (context) =>LoginRouter.page,
+          '/auth/register': (context) => RegisterRouter.page,
+          '/order': (context) => OrderRouter.page,
         },
       ),
     );
