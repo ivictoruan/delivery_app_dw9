@@ -15,13 +15,13 @@ class ShoppingBagWidget extends StatelessWidget {
     final navigator = Navigator.of(context);
     final sp = await SharedPreferences.getInstance();
     if (!sp.containsKey("accessToken")) {
-      // envio para o login
-      // ignore: unused_local_variable
       final loginResult = await navigator.pushNamed("/auth/login");
-    } else {
-      // envia para o order
+      bool notLogged = loginResult == null || loginResult == false;
+      if (notLogged) {
+        return; // [premature return]
+      }
     }
-    
+    await navigator.pushNamed("/order", arguments: bag);
   }
 
   @override
@@ -44,9 +44,9 @@ class ShoppingBagWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: InkWell(
-        onTap: () => _goOrder(context),
-        child: Center(
+      child: Center(
+        child: InkWell(
+          onTap: () => _goOrder(context),
           child: Container(
             width: 343,
             height: 48,
