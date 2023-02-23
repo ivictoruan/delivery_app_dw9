@@ -3,6 +3,7 @@ import 'package:delivery_app_dw9/app/core/extensions/formatter_extension.dart';
 import 'package:delivery_app_dw9/app/core/ui/helpers/size_extensions.dart';
 import 'package:delivery_app_dw9/app/core/ui/styles/text_styles.dart';
 import 'package:delivery_app_dw9/app/core/ui/widgets/delivery_app_bar.dart';
+import 'package:delivery_app_dw9/app/core/ui/widgets/show_product_image_widget.dart';
 import 'package:delivery_app_dw9/app/dto/order_product_dto.dart';
 import 'package:delivery_app_dw9/app/pages/product_detail/product_detail_controller.dart';
 import 'package:flutter/material.dart';
@@ -73,17 +74,10 @@ class _ProductDetailPageState
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          ShowProductImageWidget(
+            urlImage: widget.product.image,
             width: context.screenWidth,
             height: context.percentageHeight(0.4),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  widget.product.image,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
           ),
           const SizedBox(height: 10),
           Padding(
