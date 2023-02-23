@@ -35,7 +35,7 @@ class HomeController extends Cubit<HomeState> {
     final orderIndex = shoppingBag
         .indexWhere((orderP) => orderP.product == orderProduct.product);
 
-    if (orderIndex > -1) {
+    if (orderIndex > -1) { // if (orderIndex != -1) ?
       if (orderProduct.amount == 0) {
         shoppingBag.removeAt(orderIndex);
       } else {
@@ -45,5 +45,14 @@ class HomeController extends Cubit<HomeState> {
       shoppingBag.add(orderProduct);
     }
     emit(state.copyWith(shoppingBag: shoppingBag));
+  }
+
+  void updateBag(List<OrderProductDto> updatedBag) {
+    emit(
+      state.copyWith(
+        shoppingBag: updatedBag,
+        // status: HomeStateStatus.bagUpdated,
+      ),
+    );
   }
 }
