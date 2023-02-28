@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 class OrderFieldWidget extends StatelessWidget {
   final String titleField;
   final TextEditingController controller;
-  final FormFieldValidator validator;
+  final String? Function(String?)? validator;
   final String hintText;
+  final TextInputType? keyboardType;
+
   const OrderFieldWidget({
     super.key,
     required this.titleField,
     required this.controller,
     required this.validator,
     required this.hintText,
+    this.keyboardType,
   });
 
   @override
@@ -33,6 +36,7 @@ class OrderFieldWidget extends StatelessWidget {
         TextFormField(
           controller: controller,
           validator: validator,
+          keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: hintText,
             border: defaultBorder,
