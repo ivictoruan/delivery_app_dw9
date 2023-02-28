@@ -1,10 +1,21 @@
 import 'package:delivery_app_dw9/app/core/ui/helpers/size_extensions.dart';
 import 'package:delivery_app_dw9/app/core/ui/styles/text_styles.dart';
+import 'package:delivery_app_dw9/app/models/payment_type_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 
 class PaymentTypesFieldWidget extends StatelessWidget {
-  const PaymentTypesFieldWidget({super.key});
+  final List<PaymentTypeModel> paymentTypes;
+  final ValueChanged<int> valueChanged;
+  final bool valid;
+  final String valueSelected;
+  const PaymentTypesFieldWidget({
+    super.key,
+    required this.paymentTypes,
+    required this.valueChanged,
+    required this.valid,
+    required this.valueSelected, // p/ quando rebuildar a tela
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +30,11 @@ class PaymentTypesFieldWidget extends StatelessWidget {
         ),
         SmartSelect<String>.single(
           title: '',
-          selectedValue: '',
+          selectedValue: valueSelected,
           modalType: S2ModalType.bottomSheet,
-          onChange: (value) {},
+          onChange: (selected) {
+            valueChanged(int.parse(selected.value));
+          },
           tileBuilder: (context, state) {
             return InkWell(
               onTap: state.showModal,
@@ -38,8 +51,30 @@ class PaymentTypesFieldWidget extends StatelessWidget {
                           state.selected.title ?? 'Toque para selecionar',
                           style: context.textStyles.textRegular,
                         ),
-                        const Icon(Icons.arrow_forward_ios_rounded)
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Color(0XFF00343F),
+                        ),
                       ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: !valid,
+                    child: const Divider(
+                      color: Colors.red,
+                    ),
+                  ),
+                  Visibility(
+                    visible: !valid,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Selecione uma forma de pagamento!",
+                        style: context.textStyles.textRegular.copyWith(
+                          fontSize: 12,
+                          color: Colors.red,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -47,11 +82,12 @@ class PaymentTypesFieldWidget extends StatelessWidget {
             );
           },
           choiceItems: S2Choice.listFrom<String, Map<String, String>>(
-            source: [
-              {'value': 'VA', 'title': 'Vale Alimentação'},
-              {'value': 'VR', 'title': 'Vale Refeição'},
-              {'value': 'CC', 'title': 'Cartão de Crédito'},
-            ],
+            source: paymentTypes
+                .map((paymentType) => {
+                      'value': paymentType.id.toString(),
+                      'title': paymentType.name
+                    })
+                .toList(),
             title: (index, item) => item['title'] ?? '',
             value: (index, item) => item['value'] ?? '',
             group: (index, item) => 'Selecione uma forma de pagamento',
@@ -61,10 +97,6 @@ class PaymentTypesFieldWidget extends StatelessWidget {
           modalFilter: false,
           placeholder: '',
         )
-        // Icon(
-        //   Icons.arrow_forward_ios_outlined,
-        //   color: Color(0XFF00343F),
-        // ),
       ],
     );
   }
