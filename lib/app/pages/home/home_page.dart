@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +30,7 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
       body: BlocConsumer<HomeController, HomeState>(
         listener: (context, state) {
           state.status.matchAny(
-              any: hideLoader,
+              any: () => hideLoader(),
               loading: () => showLoader(),
               error: () {
                 hideLoader();
@@ -43,11 +45,6 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
         builder: (context, state) {
           return Column(
             children: [
-              // Text(
-              //   state.shoppingBag.length.toString(),
-              //   style: const TextStyle(color: Colors.black),
-              // ),
-
               Expanded(
                 child: ListView.builder(
                   itemCount: state.products.length,
@@ -66,7 +63,6 @@ class _HomePageState extends BaseState<HomePage, HomeController> {
                   },
                 ),
               ),
-
               Visibility(
                 visible: state.shoppingBag.isNotEmpty,
                 child: ShoppingBagWidget(
