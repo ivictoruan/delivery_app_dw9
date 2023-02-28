@@ -43,11 +43,12 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                 listener: (context, state) {
                   state.status.matchAny(
                     any: () => hideLoader(),
-                    success: (){
+                    success: () {
                       hideLoader();
-                      Navigator.pop(context, true); // true: para saber que fez login!
+                      Navigator.pop(
+                          context, true); // true: para saber que fez login!
                     },
-                    error: (){
+                    error: () {
                       hideLoader();
                       showError("Erro ao realizar login!");
                     },
@@ -70,6 +71,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginController> {
                       const SizedBox(height: 30),
                       TextFormField(
                         controller: _emailEC,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(labelText: "E-mail"),
                         validator: Validatorless.multiple(
                           [
