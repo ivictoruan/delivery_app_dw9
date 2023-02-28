@@ -1,3 +1,5 @@
+import 'package:delivery_app_dw9/app/repositories/order/order_repository.dart';
+import 'package:delivery_app_dw9/app/repositories/order/order_repository_Impl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,15 +11,15 @@ class OrderRouter {
 
   static Widget get page => MultiProvider(
         providers: [
+          Provider<OrderRepository>(
+            create: (context) => OrderRepositoryImpl(
+              dio: context.read(),
+            ),
+          ),
           Provider(
-            create: (context) => OrderController(),
-            // builder: (context, child) {
-            //   final args = ModalRoute.of(context)!.settings.arguments
-            //       as List<OrderProductDto>;
-            //   return OrderPage(
-            //     bag: args["bag"]
-            //   );
-            // },
+            create: (context) => OrderController(
+              context.read(),
+            ),
           ),
         ],
         child: const OrderPage(),
