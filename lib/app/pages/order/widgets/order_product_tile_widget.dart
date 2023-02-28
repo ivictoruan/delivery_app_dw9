@@ -1,7 +1,11 @@
+import 'package:delivery_app_dw9/app/core/extensions/formatter_extension.dart';
 import 'package:delivery_app_dw9/app/core/ui/styles/colors_app.dart';
 import 'package:delivery_app_dw9/app/core/ui/styles/text_styles.dart';
 import 'package:delivery_app_dw9/app/core/ui/widgets/increment_decrement_button_widget.dart';
+import 'package:delivery_app_dw9/app/core/ui/widgets/show_product_image_widget.dart';
+import 'package:delivery_app_dw9/app/pages/order/order_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../dto/order_product_dto.dart';
 
@@ -16,18 +20,14 @@ class OrderProductTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = orderProduct.product;
+    final controller = context.read<OrderController>();
     return Row(
       children: [
-        Container(
+        ShowProductImageWidget(
+          urlImage: product.image,
           width: 90,
           height: 90,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-          ),
-          child: Image.asset(
-            "assets/images/lanche.png",
-            fit: BoxFit.cover,
-          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -35,14 +35,14 @@ class OrderProductTileWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "X- Burger",
+                product.name,
                 style: context.textStyles.textMedium,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    r"R$ 19,80",
+                    (orderProduct.amount * product.price).currencyPTBR,
                     style: context.textStyles.textMedium.copyWith(
                       color: context.colors.secondary,
                       fontSize: 14,
@@ -50,11 +50,10 @@ class OrderProductTileWidget extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 130,
-                    // height: 35,
                     child: IncrementDecrementButtonWidget.compact(
-                      amount: 1,
-                      incrementOnTap: () {},
-                      decrementOnTap: () {},
+                      amount: orderProduct.amount,
+                      incrementOnTap: () => controller.incrementProduct(index),
+                      decrementOnTap: () => controller.decrementProduct(index),
                     ),
                   ),
                 ],
